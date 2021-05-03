@@ -37,7 +37,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name' => 'required|max:20|min:3',
-//                'image' => 'required|mimes:jpeg,png,jpg|max:512',
+                'image' => 'required|mimes:jpeg,png,jpg|max:512',
                 'price' => 'required|integer|min:5|max:5000',
                 'description' => 'required|min:10|max:1000',
             ]
@@ -46,12 +46,12 @@ class ProductController extends Controller
             return response()->json(['errors' => $validator->errors(), 'success' => 0],422);
         }
         $request_data = $request->only('name','price','description','image');
-//        if ($request->file('image')){
-//            $extension = $request->file('image')->extension();
-//            $file_name = rand(10,1000).time().auth()->user()->id.'.'.$extension;
-//            $request->file('image')->move('uploads/products',$file_name);
-//            $request_data['image'] = $file_name;
-//        }
+        if ($request->file('image')){
+            $extension = $request->file('image')->extension();
+            $file_name = rand(10,1000).time().auth()->user()->id.'.'.$extension;
+            $request->file('image')->move('uploads/products',$file_name);
+            $request_data['image'] = $file_name;
+        }
 
         $request_data['user_id'] = $request->user()->id;
         $product = Product::create($request_data);
