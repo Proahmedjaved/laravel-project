@@ -16,7 +16,7 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => $this->image == 'avatar.jpg' ? asset('image/avatar.jpg') : 'http://dev.estashartak.backend.invo.zone/files/uploads/products'.$this->image,
+            'image' => $this->image == 'avatar.jpg' ? asset('image/avatar.jpg') : 'http://dev.estashartak.backend.invo.zone/files/uploads/products/'.$this->image,
             'name' => $this->name,
             'price' => $this->price,
             'description' => $this->description,
