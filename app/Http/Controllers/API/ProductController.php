@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Product;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -93,6 +94,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        File::delete('uploads/products/'.$product->image);
         $product->delete();
         return response()->json(['message' => 'Product deleted successfully!' , 'success' => 1],200);
     }
